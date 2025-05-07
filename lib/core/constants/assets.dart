@@ -78,6 +78,14 @@ class Assets {
   /// assets/images/Skipping_rope-bro_gym.png
   static const String imagesSkippingRopeBroGym = "assets/images/Skipping_rope-bro_gym.png";
 
+  /// Assets for imagesSplash12
+  /// assets/images/splash_12.png
+  static const String imagesSplash12 = "assets/images/splash_12.png";
+
+  /// Assets for imagesSplashScreen
+  /// assets/images/splash_screen.png
+  static const String imagesSplashScreen = "assets/images/splash_screen.png";
+
   /// Assets for imagesSunrise
   /// assets/images/sunrise.png
   static const String imagesSunrise = "assets/images/sunrise.png";
@@ -85,5 +93,9 @@ class Assets {
   /// Assets for imagesTest
   /// assets/images/test.png
   static const String imagesTest = "assets/images/test.png";
+
+  /// Assets for splashScreen
+  /// assets/splash_screen.png
+  static const String splashScreen = "assets/splash_screen.png";
 }
 

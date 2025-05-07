@@ -31,7 +31,7 @@ class DayCubit extends Cubit<DayState> {
   String? image;
   late TextEditingController title = TextEditingController(text: '');
   late TextEditingController counterControler =
-      TextEditingController(text: '0');
+      TextEditingController();
   double complements = 0;
 
   int counter = 0;
@@ -170,22 +170,53 @@ class DayCubit extends Cubit<DayState> {
     getAllDays();
   }
 
-  void editHabit({required DayModel dayModel, required int habitIndex}) {
-    HabitModel habit = dayModel.habitsList![habitIndex];
-    int counter2 = int.tryParse(counterControler.text) ?? 0;
-    if (counter2 < dayModel.completness!) {
-      dayModel.completness = counter2.toDouble();
-    }
-    dayModel.counter = counter2;
-    dayModel.habitsList![habitIndex].title =
-        title.text.isNullOrEmpty() ? habit.title : title.text;
-    dayModel.habitsList![habitIndex].image =
-        image.isNullOrEmpty() ? habit.image : image!;
+  // void editHabit({required DayModel dayModel, required int habitIndex}) {
+  //   HabitModel habit = dayModel.habitsList![habitIndex];
+  //   int counter2 = int.tryParse(counterControler.text) ?? 0;
+  //   if (counter2 < dayModel.completness!) {
+  //     dayModel.completness = counter2.toDouble();
+  //   }
+  //   dayModel.habitsList![habitIndex].counter = counter2;
+    
+  //   dayModel.habitsList![habitIndex].title =
+  //       title.text.isNullOrEmpty() ? habit.title : title.text;
+  //   dayModel.habitsList![habitIndex].image =
+  //       image.isNullOrEmpty() ? habit.image : image!;
 
-    dayBox.put(dayModel.date, dayModel);
-    title.clear();
-    image = '';
-    counterControler.clear();
-    calcuclateDayCompleteness();
+  //   dayBox.put(dayModel.date, dayModel);
+  //   title.clear();
+  //   image = '';
+  //   counterControler.clear();
+  //   calcuclateDayCompleteness();
+  // }
+
+  void editHabit({required DayModel dayModel, required int habitIndex}) {
+  HabitModel habit = dayModel.habitsList![habitIndex];
+  int counter2 = int.tryParse(counterControler.text) ?? 0;
+  
+  // Update the specific habit's counter
+  dayModel.habitsList![habitIndex].counter = counter2;
+  
+  // Check if completions need adjustment
+  if (dayModel.habitsList![habitIndex].complements > counter2) {
+    dayModel.habitsList![habitIndex].complements = counter2.toDouble();
   }
+  
+  // Update other properties
+  dayModel.habitsList![habitIndex].title =
+      title.text.isNullOrEmpty() ? habit.title : title.text;
+  dayModel.habitsList![habitIndex].image =
+      image.isNullOrEmpty() ? habit.image : image!;
+
+  // Save changes
+  dayBox.put(dayModel.date, dayModel);
+  
+  // Clear form fields
+  title.clear();
+  image = '';
+  counterControler.clear();
+  
+  // Recalculate day completeness
+  calcuclateDayCompleteness();
+}
 }

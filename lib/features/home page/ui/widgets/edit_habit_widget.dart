@@ -34,13 +34,13 @@ class _EditHabitWidgetState extends State<EditHabitWidget> {
           children: [
             CustomTextFormField(
               controller: dayCubit.title,
-              hintText: 'enter title',
+              hintText:widget. dayModel.habitsList![widget.habitIndex].title,
             ),
             verticalSpace(40),
             CustomTextFormField(
                 keyboardType: TextInputType.number,
                 controller: dayCubit.counterControler,
-                hintText: 'enter counter'),
+                hintText: widget. dayModel.habitsList![widget.habitIndex].counter.toString()),
             verticalSpace(40),
             SizedBox(
               height: 75.h,

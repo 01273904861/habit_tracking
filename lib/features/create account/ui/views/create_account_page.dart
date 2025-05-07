@@ -65,10 +65,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   height: 70.h,
                   onPressed: () {
                     if (dayCubit.image.isNullOrEmpty() ||
-                        dayCubit.title.text.isNullOrEmpty()
-                        || 
-                        dayCubit.counterControler.text.isNullOrEmpty()
-                        ) {
+                        dayCubit.title.text.isNullOrEmpty() ||
+                        dayCubit.counterControler.text.isNullOrEmpty()) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           duration: Duration(seconds: 3),
@@ -77,8 +75,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       );
                     } else {
                       context.read<DayCubit>().addNewHabit();
-                     
-                     
+
                       context.pop();
                     }
                   },

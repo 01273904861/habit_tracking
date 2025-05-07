@@ -5,7 +5,7 @@ import 'package:habbit_tracking_app/core/models/habit_model.dart';
 import 'package:habbit_tracking_app/core/models/notification_service.dart';
 import 'package:habbit_tracking_app/core/theming/app_constants.dart';
 import 'package:habbit_tracking_app/features/home%20page/ui/views/simple_bloc_observer.dart';
-import 'package:habbit_tracking_app/habit_tracking_app.dart';
+import 'package:habbit_tracking_app/orbit_app.dart';
 import 'package:hive_flutter/adapters.dart';
 
 void main() async {
@@ -22,33 +22,33 @@ void main() async {
 
   await Hive.openBox<DayModel>(AppConstants.dayBox);
 
-  NotificationService.scheduleDailyNotification(
-    id: 1,
-    title: "Good Morning!",
-    body: "Start your day with a positive mindset.",
-    hour: 4,
-    minute: 22,
-  );
-  NotificationService.scheduleDailyNotification(
-    id: 1,
-    title: "Good Morning!",
-    body: "Start your day with a positive mindset.",
-    hour: 6,
-    minute: 9,
-  );
-  NotificationService.scheduleDailyNotification(
-    id: 1,
-    title: "Good Morning!",
-    body: "Start your day with a positive mindset.",
-    hour: 10,
-    minute: 9,
-  );
-  NotificationService.scheduleDailyNotification(
-    id: 1,
-    title: "Good after noon!",
-    body: "Start your day with a positive mindset.",
-    hour: 12,
-    minute: 9,
-  );
-  runApp(const HabitRakingApp());
+  // NotificationService.scheduleDailyNotification(
+  //   id: 1,
+  //   title: "Good Morning!",
+  //   body: "Start your day with a positive mindset.",
+  //   hour: 4,
+  //   minute: 22,
+  // );
+  // NotificationService.scheduleDailyNotification(
+  //   id: 1,
+  //   title: "Good Morning!",
+  //   body: "Start your day with a positive mindset.",
+  //   hour: 6,
+  //   minute: 9,
+  // );
+  // NotificationService.scheduleDailyNotification(
+  //   id: 1,
+  //   title: "Good Morning!",
+  //   body: "Start your day with a positive mindset.",
+  //   hour: 10,
+  //   minute: 9,
+  // );
+  // NotificationService.scheduleDailyNotification(
+  //   id: 1,
+  //   title: "Good after noon!",
+  //   body: "Start your day with a positive mindset.",
+  //   hour: 12,
+  //   minute: 9,
+  // );
+  runApp(const OrbitApp());
 }
