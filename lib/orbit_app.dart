@@ -25,7 +25,7 @@ class OrbitApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
           onGenerateRoute: AppRouter.onGenerate,
-          initialRoute: Routes.homePage,
+          initialRoute: Routes.signInPage,
         ),
       ),
     );

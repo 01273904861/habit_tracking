@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:habbit_tracking_app/core/theming/app_colors.dart';
 
 import 'package:habbit_tracking_app/core/theming/font_weight_helper.dart';
+
 class AppTextstyles {
   static TextStyle font13Greyregular = TextStyle(
     color: AppColors.grey,
@@ -90,5 +91,11 @@ class AppTextstyles {
     fontWeight: AppFontWeightHelper.semiBold,
     color: Colors.black,
     fontSize: 18.sp,
+  );
+
+  static TextStyle headerStyle = GoogleFonts.quicksand(
+    color: AppColors.white,
+    fontWeight: FontWeight.bold,
+    fontSize: 35.sp,
   );
 }

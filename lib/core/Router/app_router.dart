@@ -7,6 +7,10 @@ import 'package:habbit_tracking_app/features/create%20account/ui/widgets/input_t
 import 'package:habbit_tracking_app/features/home%20page/logic/cubit/habits_cubit.dart';
 import 'package:habbit_tracking_app/features/home%20page/ui/views/day_habits_page.dart';
 import 'package:habbit_tracking_app/features/home%20page/ui/views/home_page.dart';
+import 'package:habbit_tracking_app/features/sign%20in/logic/cubit/sign_in_cubit.dart';
+import 'package:habbit_tracking_app/features/sign%20in/ui/views/sign_in_page.dart';
+import 'package:habbit_tracking_app/features/sign%20up/logic/cubit/sign_up_cubit.dart';
+import 'package:habbit_tracking_app/features/sign%20up/ui/views/sign_up_page.dart';
 
 class AppRouter {
   static Route? onGenerate(RouteSettings routeSettings) {
@@ -29,9 +33,21 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => const InputTitleAndCounter(),
         );
-
+      case Routes.signInPage:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => SignInCubit(),
+            child: const SignInPage(),
+          ),
+        );    case Routes.signUpPage:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => SignUpCubit(),
+            child: const SignUpPage(),
+          ),
+        );
       default:
-        return null;//if you back from home 
+        return null; //if you back from home
     }
   }
 }

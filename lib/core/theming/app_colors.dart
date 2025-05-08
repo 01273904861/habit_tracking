@@ -12,4 +12,6 @@ class AppColors {
   static const Color theMostlightGrey = Color(0xffFDFDFF);
   static const Color textFieldBckgroundColor = Color(0xffF5F5F5);
 
+  static const  Color white = Colors. white;
+
 }
