@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:habbit_tracking_app/core/Router/routes.dart';
+import 'package:habbit_tracking_app/core/constants/assets.dart';
 import 'package:habbit_tracking_app/core/helper/app_functions.dart';
 import 'package:habbit_tracking_app/core/helper/extension.dart';
 import 'package:habbit_tracking_app/core/helper/spacing.dart';
@@ -16,19 +18,72 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Container(
+        padding: const EdgeInsets.all(8.0),
+        width: 150.w,
+        color: AppColors.morelightGrey,
+        child: Column(
+          children: [
+            verticalSpace(30),
+            Row(
+              children: [
+                Text('Delete all days',
+                    style: AppTextstyles.font13Greyregular
+                        .copyWith(color: AppColors.black)),
+                IconButton(
+                    onPressed: () {
+                      AppFunctions.showAnimatedDialog(
+                        context,
+                        content: 'Do you want to delete all days?',
+                        title: 'delete days',
+                        onOkPressed: () {
+                          context.read<DayCubit>().deleteAllDays();
+                          context.pop();
+                        },
+                        onCancelpressed: () {
+                          context.pop();
+                        },
+                      );
+                    },
+                    icon: const Icon(Icons.delete)),
+              ],
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
+        
+        toolbarHeight: 120.h,
         centerTitle: true,
-        title: const Text('home page'),
-        leading: IconButton(
-            onPressed: () {
-              AppFunctions.showAnimatedDialog(context,
-                  content: 'Do you want to delete all days?',
-                  title: 'delete days', onOkPressed: () {
-                context.read<DayCubit>().deleteAllDays();
-                context.pop();
-              });
-            },
-            icon: const Icon(Icons.delete)),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            horizontalSpace(5),
+            Text(
+              'O r b i t',
+              style: GoogleFonts.bebasNeue(
+                fontSize: 26.sp,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            CircleAvatar(
+              radius: 25.r,
+              backgroundImage: const AssetImage(Assets.imagesSplash12),
+            ),
+          ],
+        ),
+
+        // leading: IconButton(
+        //     onPressed: () {
+        //       AppFunctions.showAnimatedDialog(context,
+        //           content: 'Do you want to delete all days?',
+        //           title: 'delete days', onOkPressed: () {
+        //         context.read<DayCubit>().deleteAllDays();
+        //         context.pop();
+        //       });
+        //     },
+        //     icon: const Icon(Icons.delete)),
       ),
       body: BlocBuilder<DayCubit, DayState>(
         builder: (context, state) {

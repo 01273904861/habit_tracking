@@ -5,12 +5,13 @@ import 'package:habbit_tracking_app/core/models/habit_model.dart';
 import 'package:habbit_tracking_app/core/models/notification_service.dart';
 import 'package:habbit_tracking_app/core/theming/app_constants.dart';
 import 'package:habbit_tracking_app/features/home%20page/ui/views/simple_bloc_observer.dart';
+import 'package:habbit_tracking_app/firebase_options.dart';
 import 'package:habbit_tracking_app/orbit_app.dart';
 import 'package:hive_flutter/adapters.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await NotificationService.init(); //notification
   Bloc.observer = SimpleBlokObserver();
   await Hive.initFlutter();
@@ -21,6 +22,11 @@ void main() async {
   // await Hive.openBox<HabitModel>(AppConstants.habitBox);//
 
   await Hive.openBox<DayModel>(AppConstants.dayBox);
+
+
+
+
+
 
   // NotificationService.scheduleDailyNotification(
   //   id: 1,

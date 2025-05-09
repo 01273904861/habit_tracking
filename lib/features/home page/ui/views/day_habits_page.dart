@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:habbit_tracking_app/core/Router/routes.dart';
+import 'package:habbit_tracking_app/core/constants/assets.dart';
 import 'package:habbit_tracking_app/core/helper/app_functions.dart';
 import 'package:habbit_tracking_app/core/helper/extension.dart';
 import 'package:habbit_tracking_app/core/helper/spacing.dart';
@@ -72,8 +73,12 @@ class DayHabitsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 90.h,
         centerTitle: true,
-        title: const Text('Day Habits Page'),
+        title: CircleAvatar(
+          radius: 34.r,
+          backgroundImage: const AssetImage(Assets.imagesSplash12),
+        ),
         leading: IconButton(
           onPressed: () {
             AppFunctions.showAnimatedDialog(
@@ -84,6 +89,9 @@ class DayHabitsPage extends StatelessWidget {
                 dayCubit.deleteAllHabitsOfADay(dayCubit.daysList[dayIndex]);
                 context.pop();
               },
+              onCancelpressed: () {
+                context.pop();
+              }
             );
           },
           icon: const Icon(Icons.delete),
