@@ -18,14 +18,14 @@ class OrbitApp extends StatelessWidget {
       child: BlocProvider(
         create: (context) => DayCubit(),
         child: MaterialApp(
-          title: 'habbit tracking',
+          title: 'Orbit',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
           onGenerateRoute: AppRouter.onGenerate,
-          initialRoute: Routes.homePage,
+          initialRoute: Routes.signInPage,
         ),
       ),
     );

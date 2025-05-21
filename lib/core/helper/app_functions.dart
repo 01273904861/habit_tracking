@@ -25,7 +25,7 @@ class AppFunctions {
       barrierDismissible: true,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
       transitionDuration: const Duration(milliseconds: 300),
-      pageBuilder: (context, anim1, anim2) {
+      pageBuilder: (BuildContext diaologContext, anim1, anim2) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -84,7 +84,25 @@ class AppFunctions {
       return "Every big achievement starts with small steps! 🌟 You can do this! 💪🔥";
     }
   }
+
+  static Future<dynamic> customshowDialog(BuildContext context,
+      void Function()? onOkPressed, void Function()? onCancelpressed) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text('Copy Habits'),
+          content: const Text("Do you want to copy last day habits?"),
+          actions: [
+            TextButton(
+              onPressed: onCancelpressed,
+              child: const Text('No'),
+            ),
+            TextButton(onPressed: onOkPressed, child: const Text('Yes')),
+          ],
+        );
+      },
+    );
+  }
 }
-
-
-

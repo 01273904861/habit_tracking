@@ -21,7 +21,7 @@ class SignInBlackArea extends StatelessWidget {
           verticalSpace(2),
           Text(
             "Welcome back To Application",
-            style: AppTextstyles.font13Greyregular,
+            style: AppTextstyles.font13Greyregular.copyWith(color: Colors.white),
           ),
           verticalSpace(50.h),
           Center(

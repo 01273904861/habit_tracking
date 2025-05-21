@@ -5,7 +5,7 @@ part 'day_model.g.dart';
 @HiveType(typeId: 0)
 class DayModel {
   @HiveField(0)
-  final String date;
+   String date;
   @HiveField(1)
   List<HabitModel>? habitsList;
   @HiveField(2)

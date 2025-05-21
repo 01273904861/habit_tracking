@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:habbit_tracking_app/core/constants/assets.dart';
@@ -16,7 +18,8 @@ class DayCubit extends Cubit<DayState> {
     today = AppFunctions.formateFullDate(DateTime.now());
     dayNum = AppFunctions.formatDateNum(DateTime.now());
     dayName = AppFunctions.formatDateName(DateTime.now());
-    addDayMethod();
+    copyLastDayOrNo();
+    // addDayMethod();
   }
 
   late Box<DayModel> dayBox;
@@ -25,22 +28,57 @@ class DayCubit extends Cubit<DayState> {
   late String dayNum;
   late String dayName;
   late List<HabitModel> habitsList = [];
-  final GlobalKey<AnimatedListState> animatedKey =
-      GlobalKey<AnimatedListState>();
 
   String? image;
   late TextEditingController title = TextEditingController(text: '');
-  late TextEditingController counterControler =
-      TextEditingController();
+  late TextEditingController counterControler = TextEditingController();
   double complements = 0;
 
   int counter = 0;
 
-  void addDayMethod() {
+  copyLastDayOrNo() {
+    log("copyLastDayOrNo");
+    // Make sure we've loaded the days before checking
     daysList = dayBox.values.toList();
 
-    if (daysList.isNullOrEmpty() || daysList.last.date != today) {
-      DayModel dayModel = DayModel(
+    if (daysList.isNullOrEmpty()) {
+      log("copyLastDayOrNo empty");
+
+      //then you cant copy
+      addDayMethod(false);
+    } else {
+      if (daysList.last.date != today) {
+        log("$today == ${daysList.last.date}");
+
+        Future.microtask(() => emit(DoYouWantToCopyLastDay()));
+      } else {
+        // you alreadt created today habits
+
+        print("copyLastDayOrNo not empty");
+
+        emit(DayListLoaded(daysList: daysList));
+      }
+    }
+  }
+
+  // when add a day select create empty one or copy from the last
+
+  void addDayMethod(bool copyOrNo) {
+    emit(DayLoading());
+    daysList = [];
+    late DayModel dayModel;
+    daysList = dayBox.values.toList();
+
+    if (copyOrNo) {
+      dayModel = daysList.last;
+      for (var habit in dayModel.habitsList!) {
+        habit.complements = 0;
+      }
+      dayModel.date = today;
+      dayModel.percent = 0;
+      dayModel.completness = 0;
+    } else {
+      dayModel = DayModel(
         date: today,
         habitsList: [],
         percent: 0.0,
@@ -49,12 +87,16 @@ class DayCubit extends Cubit<DayState> {
         completness: 0,
         counter: 0,
       );
-      daysList.add(dayModel);
-      dayBox.put(dayModel.date, dayModel);
     }
     // scrollController.jumpTo(scrollController.position.minScrollExtent);
     // daysList = dayBox.values.toList();
-    emit(DayListLoaded(daysList: daysList));
+    dayBox.put(today, dayModel);
+    daysList = dayBox.values.toList();
+    for (var element in dayBox.values.toList()) {
+      log(element.date);
+    }
+    emit(DayListLoaded(daysList: dayBox.values.toList()));
+    
   }
 
   void addNewHabit() {
@@ -70,7 +112,7 @@ class DayCubit extends Cubit<DayState> {
     dayModel.habitsList!.add(newHabit); //add habit on it
 
     dayBox.put(dayModel.date, dayModel);
-    animatedKey.currentState?.insertItem(dayModel.habitsList!.length - 1);//animated key 
+
     title.clear();
     image = '';
     counterControler.clear();
@@ -113,19 +155,19 @@ class DayCubit extends Cubit<DayState> {
     }
   }
 
-  void deleteHabit({required int habitIndex, required DayModel dayModel ,required Widget buildHabit}) {
+  void deleteHabit(
+      {required int habitIndex,
+      required DayModel dayModel,
+      required Widget buildHabit}) {
     // Check if habitsList is not null
     if (!dayModel.habitsList.isNullOrEmpty()) {
       // Check if habitIndex is within bounds
       if (habitIndex >= 0 && habitIndex < dayModel.habitsList!.length) {
         // Remove the habit at the specified index
         dayModel.habitsList!.removeAt(habitIndex);
-        
-    animatedKey.currentState?.removeItem(habitIndex, (context , animation){
-      return buildHabit;
-    });
-    dayBox.put(dayModel.date, dayModel);
-           
+
+        dayBox.put(dayModel.date, dayModel);
+
         // Emit the new state with the updated list
         calcuclateDayCompleteness();
       } else {
@@ -139,7 +181,8 @@ class DayCubit extends Cubit<DayState> {
   }
 
   void calcuclateDayCompleteness() {
-    DayModel dayModel = dayBox.values.last;//calculate day completeness for last day only
+    DayModel dayModel =
+        dayBox.values.last; //calculate day completeness for last day only
     double completenessSum = 0;
     int counterSum = 0;
     double percent = 0;
@@ -177,7 +220,7 @@ class DayCubit extends Cubit<DayState> {
   //     dayModel.completness = counter2.toDouble();
   //   }
   //   dayModel.habitsList![habitIndex].counter = counter2;
-    
+
   //   dayModel.habitsList![habitIndex].title =
   //       title.text.isNullOrEmpty() ? habit.title : title.text;
   //   dayModel.habitsList![habitIndex].image =
@@ -191,32 +234,32 @@ class DayCubit extends Cubit<DayState> {
   // }
 
   void editHabit({required DayModel dayModel, required int habitIndex}) {
-  HabitModel habit = dayModel.habitsList![habitIndex];
-  int counter2 = int.tryParse(counterControler.text) ?? 0;
-  
-  // Update the specific habit's counter
-  dayModel.habitsList![habitIndex].counter = counter2;
-  
-  // Check if completions need adjustment
-  if (dayModel.habitsList![habitIndex].complements > counter2) {
-    dayModel.habitsList![habitIndex].complements = counter2.toDouble();
-  }
-  
-  // Update other properties
-  dayModel.habitsList![habitIndex].title =
-      title.text.isNullOrEmpty() ? habit.title : title.text;
-  dayModel.habitsList![habitIndex].image =
-      image.isNullOrEmpty() ? habit.image : image!;
+    HabitModel habit = dayModel.habitsList![habitIndex];
+    int counter2 = int.tryParse(counterControler.text) ?? 0;
 
-  // Save changes
-  dayBox.put(dayModel.date, dayModel);
-  
-  // Clear form fields
-  title.clear();
-  image = '';
-  counterControler.clear();
-  
-  // Recalculate day completeness
-  calcuclateDayCompleteness();
-}
+    // Update the specific habit's counter
+    dayModel.habitsList![habitIndex].counter = counter2;
+
+    // Check if completions need adjustment
+    if (dayModel.habitsList![habitIndex].complements > counter2) {
+      dayModel.habitsList![habitIndex].complements = counter2.toDouble();
+    }
+
+    // Update other properties
+    dayModel.habitsList![habitIndex].title =
+        title.text.isNullOrEmpty() ? habit.title : title.text;
+    dayModel.habitsList![habitIndex].image =
+        image.isNullOrEmpty() ? habit.image : image!;
+
+    // Save changes
+    dayBox.put(dayModel.date, dayModel);
+
+    // Clear form fields
+    title.clear();
+    image = '';
+    counterControler.clear();
+
+    // Recalculate day completeness
+    calcuclateDayCompleteness();
+  }
 }

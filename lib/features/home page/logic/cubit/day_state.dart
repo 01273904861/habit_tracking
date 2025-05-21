@@ -10,3 +10,7 @@ final  List<DayModel>daysList;
   DayListLoaded({required this.daysList});
 }
 final class NoDays extends DayState {}
+final class DayDeleted extends DayState {}
+final class DayLoading extends DayState {}
+ 
+ final class DoYouWantToCopyLastDay extends DayState {}

@@ -19,13 +19,14 @@ extension Navigation on BuildContext {
   void pop() {
     Navigator.of(this).pop();
   }
+}
 
-}
 //"".isNullOrEmpty
-extension StringExension on String?{
-  bool isNullOrEmpty()=>this == null || this!.isEmpty;
+extension StringExension on String? {
+  bool isNullOrEmpty() => this == null || this!.isEmpty;
 }
+
 //List.isNullOrEmty
-extension ListExension<T> on List<T>?{
- bool isNullOrEmpty()=>this==null ||this!.isEmpty || this == [];
+extension ListExension<T> on List<T>? {
+  bool isNullOrEmpty() => this == null || this!.isEmpty || this == [];
 }

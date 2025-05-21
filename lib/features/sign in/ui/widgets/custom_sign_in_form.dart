@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habbit_tracking_app/core/Router/routes.dart';
 import 'package:habbit_tracking_app/core/helper/extension.dart';
 import 'package:habbit_tracking_app/core/helper/spacing.dart';
+import 'package:habbit_tracking_app/core/theming/app_colors.dart';
+import 'package:habbit_tracking_app/core/theming/app_textstyles.dart';
 import 'package:habbit_tracking_app/core/widgets/app_button.dart';
 import 'package:habbit_tracking_app/features/sign%20in/logic/cubit/sign_in_cubit.dart';
 import 'package:habbit_tracking_app/features/sign%20in/ui/widgets/auth_text_field.dart';
@@ -94,30 +96,6 @@ class _CustomSignInFormState extends State<CustomSignInForm> {
                       ),
                     ),
                     verticalSpace(20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: true,
-                              onChanged: (value) {},
-                            ),
-                            const Text(
-                              "Stay logged in?",
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ],
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "Forgot Password?",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        ),
-                      ],
-                    ),
                     const Spacer(),
                     AppButton(
                       onPressed: () {
@@ -132,6 +110,22 @@ class _CustomSignInFormState extends State<CustomSignInForm> {
                     verticalSpace(20),
                     const DontHaveAnAccountWidget(),
                     verticalSpace(40),
+                    TextButton(
+                        onPressed: () {
+                          context.pushNamed(Routes.homePage);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Visit as a guest ',
+                              style: AppTextstyles.font16WhiteMeduim
+                                  .copyWith(color: AppColors.black),
+                            ),
+                            const Icon(Icons.arrow_forward_ios,
+                                color: Color.fromARGB(255, 75, 18, 13)),
+                          ],
+                        ))
                   ],
                 );
         },

@@ -6,5 +6,6 @@
   static const String createAccountPage = '/createAccountPage';
   static const String  inputTitleAndCounterPage = '/inputTitleAndCounterPage';
   static const String  dayHabitsPage = '/dayHabitsPage';
+  static const String  daysPage = '/DaysListviewPage';
 
 }

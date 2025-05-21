@@ -98,4 +98,9 @@ class AppTextstyles {
     fontWeight: FontWeight.bold,
     fontSize: 35.sp,
   );
+  static TextStyle appNameStyle = GoogleFonts.peralta(
+      fontSize: 26.sp,
+      color: Colors.white,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 1);
 }

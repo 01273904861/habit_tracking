@@ -36,53 +36,56 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     final dayCubit = context.read<DayCubit>();
     return SafeArea(
       child: Scaffold(
-          body: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              onPageChanged: (index) {
-                setState(() {
-                  currentIndex = index;
-                });
-              },
-              controller: pageController,
-              itemCount: createAccountPagesList.length,
-              itemBuilder: (context, i) {
-                return createAccountPagesList[i];
-              },
+          body: SingleChildScrollView(
+            child: Column(
+                    children: [
+            SizedBox(
+              height: 650.h,
+              child: PageView.builder(
+                onPageChanged: (index) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+                controller: pageController,
+                itemCount: createAccountPagesList.length,
+                itemBuilder: (context, i) {
+                  return createAccountPagesList[i];
+                },
+              ),
             ),
-          ),
-          currentIndex != createAccountPagesList.length - 1
-              ? AppButton(
-                  height: 75.h,
-                  onPressed: () {
-                    pageController.nextPage(
-                        duration: const Duration(milliseconds: 3),
-                        curve: Curves.bounceIn);
-                  },
-                  title: 'next')
-              : AppButton(
-                  height: 70.h,
-                  onPressed: () {
-                    if (dayCubit.image.isNullOrEmpty() ||
-                        dayCubit.title.text.isNullOrEmpty() ||
-                        dayCubit.counterControler.text.isNullOrEmpty()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          duration: Duration(seconds: 3),
-                          content: Text('please enter title and image'),
-                        ),
-                      );
-                    } else {
-                      context.read<DayCubit>().addNewHabit();
-
-                      context.pop();
-                    }
-                  },
-                  title: 'Done'),
-          verticalSpace(30),
-        ],
-      )),
+            currentIndex != createAccountPagesList.length - 1
+                ? AppButton(
+                    height: 75.h,
+                    onPressed: () {
+                      pageController.nextPage(
+                          duration: const Duration(milliseconds: 3),
+                          curve: Curves.bounceIn);
+                    },
+                    title: 'next')
+                : AppButton(
+                    height: 70.h,
+                    onPressed: () {
+                      if (dayCubit.image.isNullOrEmpty() ||
+                          dayCubit.title.text.isNullOrEmpty() ||
+                          dayCubit.counterControler.text.isNullOrEmpty()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            duration: Duration(seconds: 3),
+                            content: Text('please enter title and image'),
+                          ),
+                        );
+                      } else {
+                        context.read<DayCubit>().addNewHabit();
+            
+                        context.pop();
+                      }
+                    },
+                    title: 'Done'),
+            verticalSpace(30),
+                    ],
+                  ),
+          )),
     );
   }
 }
