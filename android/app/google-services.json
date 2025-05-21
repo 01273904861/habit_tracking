@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "603928847813",
+    "project_id": "orbit-b9d13",
+    "storage_bucket": "orbit-b9d13.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603928847813:android:d3035f9852f40cd7dd17ac",
+        "android_client_info": {
+          "package_name": "com.example.habbit_tracking_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9Hhwu3zy1x7QVS1liMQjI9T3QdGS3AmQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

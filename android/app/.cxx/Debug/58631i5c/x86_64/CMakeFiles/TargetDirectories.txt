@@ -1,0 +1,2 @@
+D:/digital egypt/habbit traking/habbit_tracking_app/android/app/.cxx/Debug/58631i5c/x86_64/CMakeFiles/edit_cache.dir
+D:/digital egypt/habbit traking/habbit_tracking_app/android/app/.cxx/Debug/58631i5c/x86_64/CMakeFiles/rebuild_cache.dir
